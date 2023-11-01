@@ -1,0 +1,27 @@
+name: Deploy to Minikube
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Configure kubectl
+        run: |
+          echo "$KUBE_CONFIG" > kubeconfig.yaml
+          mkdir -p $HOME/.kube
+          mv kubeconfig.yaml $HOME/.kube/config
+          kubectl config use-context minikube
+
+      - name: Apply Kubernetes Deployment
+        run: |
+          kubectl apply -f apideployment.yaml
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}

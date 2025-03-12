@@ -1,2 +1,2 @@
-# Testcode
-comtainerized JS app for deployment on a minikube environment  
+CI/CD Pipelines Tesing with Github Actions, CircleCI and Jenkins
+using a laravel framework + postgreSQL mock app
